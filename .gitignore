@@ -28,3 +28,5 @@ benchmark.py
 reproducibility.py
 plot_convergence.py
 Results/
+naoh_gui.py
+CLAUDE.md
