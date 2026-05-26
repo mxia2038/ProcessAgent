@@ -78,17 +78,13 @@ def bubble_point(P_bar, x_pct):
 #    T : temperature, degC
 #
 #    Two correlations available:
-#      "proprietary" — empirical regression (company-internal, higher accuracy)
+#      "proprietary" — empirical regression (loaded from naoh_properties_private.py
+#                      if present; not included in the public repository)
 #      "public"      — Cp from Perry's Chemical Engineers' Handbook, 9th ed.,
-#                      Table 2-196; reference enthalpy terms shared with proprietary.
+#                      Table 2-196; reference enthalpy terms at 0 °C.
 # ---------------------------------------------------------------------------
 
 _ENTHALPY_COEFFS = {
-    "proprietary": {
-        "k1": -1.5519e-4, "b1":  0.0669,
-        "k2":  6.891e-3,  "b2": -2.8,
-        "k3":  0.80423,   "b3": 27.807,
-    },
     "public": {
         "k1": -1.5816e-5, "b1":  0.0669,
         "k2": -4.5309e-3, "b2": -2.8,
@@ -96,8 +92,15 @@ _ENTHALPY_COEFFS = {
     },
 }
 
-# Backward-compatible module-level aliases → proprietary coefficients
-_c = _ENTHALPY_COEFFS["proprietary"]
+# Load proprietary coefficients if the private file is present locally
+try:
+    from naoh_properties_private import _PROPRIETARY_COEFFS  # noqa: F401
+    _ENTHALPY_COEFFS["proprietary"] = _PROPRIETARY_COEFFS
+except ImportError:
+    pass  # proprietary correlation unavailable; "public" is the default
+
+# Backward-compatible module-level aliases (public coefficients)
+_c = _ENTHALPY_COEFFS["public"]
 _K1, _B1 = _c["k1"], _c["b1"]
 _K2, _B2 = _c["k2"], _c["b2"]
 _K3, _B3 = _c["k3"], _c["b3"]
@@ -106,7 +109,7 @@ del _c
 _KCAL_TO_KJ = 4.1868
 
 
-def cp_solution(x_pct, correlation="proprietary"):
+def cp_solution(x_pct, correlation="public"):
     """
     Specific heat capacity of NaOH solution, kcal/kg/°C.
 
@@ -121,7 +124,7 @@ def cp_solution(x_pct, correlation="proprietary"):
     return c["k1"] * x_pct**2 + c["k2"] * x_pct + c["k3"]
 
 
-def enthalpy_solution(T_C, x_pct, unit="kcal/kg", correlation="proprietary"):
+def enthalpy_solution(T_C, x_pct, unit="kcal/kg", correlation="public"):
     """
     Specific enthalpy of NaOH solution.
 

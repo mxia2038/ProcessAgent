@@ -1,3 +1,6 @@
+# Private / proprietary files — never commit
+naoh_properties_private.py
+
 # Python
 __pycache__/
 *.py[cod]
