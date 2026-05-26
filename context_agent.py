@@ -1,5 +1,6 @@
 import asyncio
 import json
+import re
 from autogen_core import CancellationToken
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 from autogen_agentchat.agents import AssistantAgent
@@ -27,8 +28,26 @@ async def generate_context(model_config, agent_config, loop_n) -> None:
     
     if response and hasattr(response.chat_message, "content"):
         try:
-            payload = json.loads(response.chat_message.content)
-        except json.JSONDecodeError as e:
+            raw = response.chat_message.content
+            # Strip markdown code fences if present
+            match = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", raw, re.DOTALL)
+            if match:
+                raw = match.group(1)
+            else:
+                # Extract the outermost {...} block
+                start = raw.index("{")
+                depth, end = 0, start
+                for i, ch in enumerate(raw[start:], start):
+                    if ch == "{":
+                        depth += 1
+                    elif ch == "}":
+                        depth -= 1
+                        if depth == 0:
+                            end = i
+                            break
+                raw = raw[start : end + 1]
+            payload = json.loads(raw)
+        except (json.JSONDecodeError, ValueError) as e:
             raise RuntimeError("LLM did not return valid JSON") from e
         
         overview_path = agent_config['llm_process_overview_save_path']

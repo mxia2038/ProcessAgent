@@ -1,38 +1,162 @@
-### Hydro-De-Alkylation (HDA) Process – Block-by-Block Summary
+## Triple-effect counter-current falling-film NaOH evaporation: process overview
 
-1. Feed Preparation
-   • Liquid toluene (Stream B) and make-up/recycle hydrogen (Stream A + recycle loop) enter Mixer M101 at 303 K and 350 kPa.  
-   • M101 provides homogeneous vapour–phase mixing without heat duty.
+### 1. Duty and material balance
+A 10 000 kg/h feed of 32% NaOH at 75 degC is concentrated to 50% NaOH in a triple-effect falling-film evaporator arranged in **counter-current liquid flow**.
 
-2. Charge Heater H101
-   • The mixed feed is fired in Heater H101 to attain the high inlet temperature required for gas-phase hydrodealkylation.  
-   • The heater operates under essentially the same pressure as the upstream mixer (≈350 kPa) and raises the temperature into the catalytic reaction window (≈827–975 K) while remaining below the metallurgical limit of common furnace tubes (≈1000 K).
+- NaOH in feed = 10 000 x 0.32 = **3 200 kg/h**
+- Product flow at 50% NaOH = 3 200 / 0.50 = **6 400 kg/h**
+- Total water evaporated = 10 000 - 6 400 = **3 600 kg/h**
 
-3. Reactor R101
-   • An adiabatic, fixed-bed catalyst reactor effects the endothermic conversion:  
-     C₆H₅CH₃ + H₂ → C₆H₆ + CH₄.  
-   • Design basis sets single-pass toluene conversion at 75 %.  
-   • Reactor effluent leaves only a few kelvin below the inlet (because the reaction is endothermic yet limited to 75 % conversion) and at roughly 350 kPa.
+The evaporation system therefore removes about **3.6 t/h of water**, while preserving caustic soda inventory through the three effects.
 
-4. High-Pressure Flash F101
-   • The hot reactor effluent is partially condensed to 305–369 K at ≈350 kPa with negligible pressure loss.  
-   • Vapour phase (rich in H₂ and CH₄) proceeds to the purge/recycle loop; liquid phase (benzene/toluene) remains for further separation.
+### 2. Flowsheet arrangement
+The system combines:
+- **Three falling-film evaporator effects**
+- **Counter-current liquid progression**: Effect 3 -> Effect 2 -> Effect 1
+- **Forward vapour progression**: fresh steam -> Effect 1 -> Effect 2 -> Effect 3 -> surface condenser
+- **A four-exchanger preheat network** using recovered sensible heat from:
+  - 50% NaOH product stream
+  - Effect-1 steam condensate
 
-5. Purge & Recycle Loop
-   • Splitter S101 removes 20 % of the flash vapour as purge to control inerts (chiefly CH₄).  
-   • The remaining 80 % is compressed isothermally in C101 back to the original system pressure of 350 kPa and returned to Mixer M101.
+This arrangement is standard for caustic concentration because it improves steam economy while limiting residence time and reducing thermal degradation or fouling risk relative to pool-boiling designs.
 
-6. Low-Pressure Flash F102
-   • The condensed liquid from F101 is throttled across a control valve, generating a pressure drop of 2 × 10⁴ – 2 × 10⁵ Pa (negative sign convention), well within the 250 kPa mechanical limit of the vessel.  
-   • At the lower flash pressure, benzene preferentially vaporises and exits overhead; the toluene-rich bottoms are recycled or sent to further recovery.  
-   • F102 temperature is maintained in the 306–366 K window to balance benzene recovery with heat-duty economy.  
-   • By specification, the attainable temperature in Heater H101 is completely independent of the pressure drop selected for F102.
+### 3. Effect-by-effect process description
 
-7. Product Handling
-   • Benzene overhead is condensed, stabilised, and routed to storage.  
-   • Toluene bottoms can be sent back to the reaction section or exported, depending on overall plant optimisation.
+#### Effect 3: cold-feed entry, lowest pressure
+The 32% NaOH feed enters the system on the **third effect**, which operates at the **lowest absolute pressure** and therefore the lowest boiling temperature. Before entry, the feed is preheated in the PH3/PH4 section of the heat-recovery train.
 
-### Utilities & Controls (brief)
-• Fired duty in H101 is trimmed to hold R101 inlet temperature.  
-• Level control in F101/F102 maintains phase disengagement.  
-• Pressure-override control on the purge stream prevents light-gas accumulation.
+In Effect 3:
+- The feed is distributed to the top of the tube bundle.
+- Liquid forms a thin falling film on the inside of the tubes.
+- Heating is supplied by vapour **V2** generated in Effect 2 and condensed on the shell side.
+- Part of the water in the feed evaporates, generating secondary vapour **V3**.
+- The partially concentrated liquor leaves the bottom as stream to Effect 2.
+
+Because this effect operates under the deepest vacuum, it acts as the cold end of the vapour train and discharges its vapour to the surface condenser.
+
+#### Effect 2: intermediate pressure and concentration
+Liquor from Effect 3 is pumped or transferred to **Effect 2**, after being preheated by PH1/PH2 to the required condition for entry to the next hotter effect in the counter-current sequence.
+
+In Effect 2:
+- The liquor concentration is higher than in Effect 3.
+- Heating is supplied by condensation of **V1** from Effect 1.
+- Additional water is evaporated.
+- Generated vapour becomes **V2**, which is routed to Effect 3 as the heating medium.
+- Bottom liquor is further concentrated and sent onward to Effect 1.
+
+This effect is operated under vacuum, but at a higher pressure than Effect 3, giving an intermediate boiling temperature and usable temperature driving force on both sides of the cascade.
+
+#### Effect 1: hottest effect, final concentration
+The most concentrated liquor enters **Effect 1**, which is the first vapour effect and the only one heated by external utility steam.
+
+In Effect 1:
+- Fresh steam at **10 bar** condenses on the heating side.
+- The liquor, already preheated by the recovery network, enters at **dT_superheat_1 degC above the bubble point at P1**.
+- Final evaporation raises the liquor to the target **50% NaOH** product concentration.
+- Secondary vapour **V1** generated in this effect is sent to Effect 2 as its heating medium.
+- Product leaves the bottom and is routed through the recovery preheaters as a hot-side stream before final cooling/storage.
+
+Effect 1 operates **slightly above atmospheric pressure**, which is industrially preferred in caustic service because it provides a sufficiently high boiling temperature for vapour cascading while avoiding unnecessarily high product temperatures and corrosion severity.
+
+### 4. Vapour and condensate cascade
+The thermal integration follows the standard multiple-effect principle.
+
+#### Vapour path
+- **Fresh steam** heats Effect 1
+- **V1** from Effect 1 heats Effect 2
+- **V2** from Effect 2 heats Effect 3
+- **V3** from Effect 3 goes to the **surface condenser**
+
+Each downstream effect operates at a lower pressure than the upstream effect, so each generated vapour is at a high enough saturation temperature to act as the heating medium for the next effect.
+
+#### Condensate path
+- Fresh steam condensed in Effect 1 produces hot condensate.
+- This condensate is recovered through the preheater network before discharge or condensate return.
+- Condensates from vapour heating in Effects 2 and 3 are likewise separated from non-condensables and handled to maintain heat-transfer performance and vacuum stability.
+
+Proper condensate drainage and non-condensable venting are essential, especially in NaOH evaporation, because even small accumulations reduce overall heat-transfer coefficients and steam economy.
+
+### 5. Preheater network and feed conditioning
+The process includes **four heat exchangers** arranged as a recovery network.
+
+#### PH1 / PH2
+These exchangers preheat the liquor stream going to **Effect 1** (identified as the Effect-2 outlet stream, L2) using two hot streams in series on the hot side:
+- 50% NaOH product
+- Effect-1 condensate
+
+The cold stream is heated to **dT_superheat_1 degC above the bubble point at P1** before entering Effect 1.
+
+This controlled superheat serves several functions:
+- reduces flash suppression at distributor entry,
+- decreases the external steam duty in Effect 1,
+- improves steam economy,
+- but must remain limited to preserve stable falling-film hydraulics and avoid maldistribution.
+
+#### PH3 / PH4
+These exchangers preheat the fresh feed to **Effect 3** using the same two hot streams after they leave PH1/PH2.
+
+The network is constrained by a fixed **hot-end approach of 5 degC**, expressed as:
+- **T_F2 = T_mid - 5 degC**
+
+This fixed pinch means the recovery train has a finite sensible-heat ceiling; therefore the allowable superheat into Effect 1 cannot be increased indefinitely without violating exchanger approach temperatures or starving the feed-side preheat to Effect 3.
+
+### 6. Pressure profile and boiling-temperature logic
+For viable heat transfer in the three-effect train, the operating pressures must decrease from Effect 1 to Effect 3:
+- **P1**: slightly above atmospheric, typically in the low positive-pressure region
+- **P2**: under vacuum and well below 1.0 bar
+- **P3**: deeper vacuum than P2
+
+This pressure ladder determines:
+- boiling temperatures of the NaOH liquor in each effect,
+- available temperature differences for heat transfer,
+- vapour recompression value of each secondary vapour,
+- condenser load and cooling-water requirement,
+- risk of excessive caustic temperature in the final effect.
+
+In NaOH service, the boiling point is elevated relative to pure water, and the elevation increases strongly with concentration. Consequently, the usable temperature driving force is not simply based on steam saturation temperatures; it must account for liquor boiling-point rise, especially in Effect 1 where the caustic is near 50%.
+
+### 7. Why falling-film and counter-current operation are used
+A **falling-film** geometry is preferred for concentrated caustic because it offers:
+- short residence time,
+- low liquid holdup,
+- good heat-transfer coefficients at moderate temperature difference,
+- lower thermal exposure than natural-circulation kettles,
+- better suitability for multi-effect operation.
+
+The **counter-current liquid arrangement** is particularly advantageous because:
+- the most concentrated liquor is processed in the hottest effect, where the highest boiling-point rise can still be accommodated,
+- the cold dilute feed enters the coldest effect, reducing flash losses and improving energy recovery,
+- sensible heat from product and condensate can be effectively reused in the preheat train.
+
+### 8. Main operational constraints governing optimisation
+The optimisation objective is to minimise **steam consumption in kg steam per tonne of NaOH product**. In practice, the chosen variables influence steam use through the following mechanisms:
+
+#### P1
+- Higher P1 raises Effect-1 saturation temperature and can increase temperature driving force to Effect 2.
+- However, it also raises final caustic boiling temperature, increasing corrosion tendency, boiling-point-rise penalty, and possible fouling/scaling severity.
+- Too low a P1 reduces the top-end temperature available for cascading vapour through all three effects.
+
+#### P2
+- P2 must remain distinctly below atmospheric pressure so that V1 can condense with a practical driving force and V2 can still heat Effect 3.
+- If P2 is too high, the temperature drop from Effect 1 to Effect 2 becomes too small.
+- If too low, vacuum load increases and hydraulic/flash behaviour may become less stable.
+
+#### P3
+- P3 sets the cold-end temperature and condenser duty.
+- Lower P3 can improve total available delta T across the train, but too deep a vacuum increases condenser size requirement, non-condensable sensitivity, and air in-leakage risk.
+- P3 must remain clearly below P2 so that V2 can condense in Effect 3 with workable temperature approach.
+
+#### dT_superheat_1
+- Moderate superheat into Effect 1 reduces the evaporation duty that must be supplied directly by fresh steam.
+- Excessive superheat can destabilise the distributor and the falling-film wetting pattern, especially with viscous concentrated caustic.
+- It is also limited by the heat-recovery pinch and by the finite sensible heat available from product and Effect-1 condensate.
+
+### 9. Practical industrial operating window
+For industrial NaOH concentration from about 32% to 50% in a triple-effect system of this type, realistic optimisation should remain within pressure windows that preserve:
+- positive heat-transfer driving force across all effects,
+- acceptable final-liquor temperature,
+- manageable vacuum system load,
+- stable film distribution,
+- feasible exchanger pinch in the preheater train.
+
+The ranges below reflect these industrial requirements while remaining consistent with the stated flowsheet and the strict ordering of effect pressures.

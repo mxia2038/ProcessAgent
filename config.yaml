@@ -6,35 +6,44 @@ ContextAgent:
   llm_constraint_save_path: "Results/generated_constraints.txt"
   llm_constraint_avg_save_path: "Results/generated_constraints_avg.txt"
   llm_process_overview_save_path: "Results/llm_process_overview.txt"
-  context_sampling_iterations: 5
+  context_sampling_iterations: 3
 
 # ===========================
 # Optimization Configuration
 # ===========================
 Optimization:
-  initial_params: {
-        "H101_temperature":600,
-        "F101_temperature":325, 
-        "F102_temperature":375,
-        "F102_deltaP":-240000
-        }
-  optimization_metric: "cost"  # specify the objective to be used: "cost", "yield", "yield/cost"
-  optimization_save_path: "Results/result_cost.json" 
+  process: "naoh"          # "naoh" or "hda"
+  initial_params:
+    P1: 2.0
+    P2: 0.45
+    P3: 0.09
+    dT_superheat_1: 7.0
+  optimization_metric: "steam_per_tonne_naoh"   # lower is better
+  optimization_save_path: "Results/result_naoh.json"
+  param_bounds:                  # hard overrides — take precedence over LLM-generated ranges
+    P1:             [1.5,  3.0]
+    P2:             [0.30, 0.70]
+    P3:             [0.08, 0.15]
+    dT_superheat_1: [5.0, 10.0]
+  fixed_params:
+    DT_APP_PH34: 4.0             # E201/E202 cold-end approach, °C; T_hot_out34 = T3 + DT_APP_PH34
+    enthalpy_correlation: "public"         # "proprietary" = internal data; "public" = Perry's Handbook
 
 # ===========================
 # Model Configuration
 # ===========================
 Model:
-  model: "o3-2025-04-16"
-  api_key: ""
+  model: "gpt-5.4"
+  api_key: "your-openai-api-key-here"
   base_url: "https://api.openai.com/v1"
   model_info:
-    model: "o3-2025-04-16"
+    model: "gpt-5.4"
     provider: "openai"
     mode: "chat"
     is_chat_model: true
-    max_tokens: 30000
-    vision: false
+    max_tokens: 32768
+    vision: true
     function_calling: true
     json_output: true
-    family: "gpt-4"
+    structured_output: false
+    family: "gpt-4o"    # AutoGen transformer family; gpt-5.4 uses same API interface

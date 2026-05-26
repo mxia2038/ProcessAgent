@@ -13,3 +13,6 @@ tiktoken==0.9.0
 # Data Processing
 pandas==2.2.3
 pyyaml==6.0.2
+
+# GUI Calculator (naoh_gui.py)
+openpyxl>=3.1

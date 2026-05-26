@@ -1,4 +1,4 @@
-Heater H101 Temperature: [820 K, 980 K]
-Flash F101 Temperature: [290 K, 390 K]
-Flash F102 Temperature: [280 K, 340 K]
-Flash F102 ΔPressure: [-240000 Pa, -10000 Pa]
+P1: [1.6 bar, 2.8 bar]
+P2: [0.35 bar, 0.65 bar]
+P3: [0.08 bar, 0.14 bar]
+dT_superheat_1: [5.0 degC, 10.0 degC]
