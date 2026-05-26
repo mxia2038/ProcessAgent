@@ -22,3 +22,9 @@ dist/
 .DS_Store
 Thumbs.db
 paper_draft.md
+
+# Paper-related (not public until publication)
+benchmark.py
+reproducibility.py
+plot_convergence.py
+Results/

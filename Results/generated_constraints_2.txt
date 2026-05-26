@@ -1,4 +1,0 @@
-P1: [1.5 bar, 3.0 bar]
-P2: [0.3 bar, 0.7 bar]
-P3: [0.08 bar, 0.15 bar]
-dT_superheat_1: [5.0 degC, 10.0 degC]
