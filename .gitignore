@@ -30,3 +30,7 @@ plot_convergence.py
 Results/
 naoh_gui.py
 CLAUDE.md
+naoh_evaporation.py
+naoh_properties.py
+naoh_objective_function.py
+context_agent_prompt.yaml
