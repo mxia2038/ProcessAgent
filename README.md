@@ -85,12 +85,12 @@ Or double-click `dist\NaOH_Evaporator.exe` — no Python installation required.
 
 | Method | Steam (kg/t NaOH) | Evaluations | Time |
 |--------|-------------------|-------------|------|
-| SLSQP (10 starts) | **509.5** | 365 | 0.5 s |
-| Differential Evolution | 509.7 | 2 649 | 0.8 s |
-| Grid Search (8⁴) | 512.2 | 4 096 | 0.9 s |
+| SLSQP (10 starts) | **518.24** | 338 | 0.5 s |
+| Differential Evolution | 518.29 | 2 505 | 0.8 s |
+| Grid Search (8⁴) | 520.85 | 4 096 | 1.0 s |
 | **LLM multi-agent** | **523.5** *(mean, 5 runs)* | **~20** | ~4 min |
 
-The LLM agent reaches 99.0 % of the mathematical optimum using ~20 evaluations — roughly 130× fewer than Differential Evolution.
+The LLM agent reaches 99.0 % of the mathematical optimum using ~20 evaluations — roughly 125× fewer than Differential Evolution.
 
 ---
 
