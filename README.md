@@ -34,13 +34,10 @@ ProcessAgent/
 
 ## Quick Start
 
-### 1. Install dependencies (Linux / WSL)
+### 1. Install dependencies
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install scipy autogen-agentchat==0.5.1 autogen-core==0.5.1 autogen-ext==0.5.1 \
-            openai==1.70.0 pandas pyyaml
+pip install -r requirements.txt
 ```
 
 ### 2. Configure API key
