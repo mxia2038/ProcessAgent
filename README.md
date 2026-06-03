@@ -14,15 +14,12 @@ ProcessAgent/
 ├── context_agent.py             Generates process constraints via LLM
 ├── optimization.py              AutoGen multi-agent optimisation loop
 ├── agent_helper_function.py     Shared tool functions for agents
-├── naoh_evaporation.py          NaOH mass/energy balance model (21-stream)
+├── naoh_evaporation.py          NaOH mass/energy balance model
 ├── naoh_properties.py           NaOH-water thermodynamic property package
 ├── naoh_objective_function.py   Objective function wrapper
-├── naoh_gui.py                  Standalone Chinese-language GUI calculator
-├── benchmark.py                 Comparison vs SLSQP / DE / Grid Search
 ├── config.yaml                  All runtime settings and API key
 ├── context_agent_prompt.yaml    LLM prompt for constraint generation
-├── Results/                     Optimisation outputs and figures
-└── dist/NaOH_Evaporator.exe     Packaged Windows calculator (no Python needed)
+└── Results/                     Optimisation outputs and figures
 ```
 
 ---
@@ -31,8 +28,7 @@ ProcessAgent/
 
 - **LLM multi-agent optimisation** — ValidatorAgent, MetricCalculationAgent, and SuggestionAgent collaborate to iteratively improve process conditions
 - **Process-agnostic framework** — add a new process with one new file and a config block; no changes to the framework layer
-- **NaOH evaporation model** — rigorous mass/energy balance with LMTD, preheater network, and 21-stream table
-- **GUI calculator** — Chinese-language desktop app with Excel export, packaged as a standalone Windows exe
+- **NaOH evaporation model** — rigorous mass/energy balance with LMTD and preheater network
 
 ---
 
@@ -44,7 +40,7 @@ ProcessAgent/
 python -m venv .venv
 source .venv/bin/activate
 pip install scipy autogen-agentchat==0.5.1 autogen-core==0.5.1 autogen-ext==0.5.1 \
-            openai==1.70.0 pandas pyyaml openpyxl
+            openai==1.70.0 pandas pyyaml
 ```
 
 ### 2. Configure API key
@@ -62,16 +58,6 @@ python main.py
 ```
 
 Results are saved to `Results/result_naoh.json`.
-
-### 4. Run the GUI calculator (Windows)
-
-```powershell
-# In Windows PowerShell, or via WSL:
-pip install scipy openpyxl
-python naoh_gui.py
-```
-
-Or double-click `dist\NaOH_Evaporator.exe` — no Python installation required.
 
 ---
 
@@ -94,22 +80,9 @@ The LLM agent reaches 99.0 % of the mathematical optimum using ~20 evaluations �
 
 ---
 
-## Packaging the GUI as an exe
-
-```powershell
-pip install pyinstaller
-pyinstaller --onefile --windowed --name "NaOH_Evaporator" `
-    --hidden-import scipy.optimize `
-    --hidden-import scipy.linalg `
-    naoh_gui.py
-# Output: dist\NaOH_Evaporator.exe  (~51 MB)
-```
-
----
-
 ## Requirements
 
-- Python 3.11+ (3.13 tested on Windows for GUI packaging)
-- OpenAI API key (LLM pipeline only; GUI does not require it)
+- Python 3.11+
+- OpenAI API key
 
 See `requirements.txt` for pinned versions.
