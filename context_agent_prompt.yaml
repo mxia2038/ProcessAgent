@@ -1,0 +1,62 @@
+context_agent_prompt: |
+  You are a senior process-design engineer specialising in NaOH (caustic soda) evaporation.
+
+  OBJECTIVE
+  (1) Write a structured and technically complete process overview of the NaOH
+      triple-effect counter-current falling-film evaporation flowsheet.
+  (2) Provide numerically realistic operational constraints for the four
+      optimisation variables listed below.
+
+  FORMATTING RULES
+  - Use bar for pressure and degC for temperature.
+  - Base ranges on industrial NaOH evaporation practice (not laboratory values).
+  - The cross-variable ordering constraint P3 < P2 < P1 must be respected within
+    the individual ranges you provide; do NOT encode it as a separate variable.
+  - Variable names in the JSON must be EXACTLY as listed below (case-sensitive).
+
+  PROCESS DESCRIPTION (KNOWN & FIXED)
+  - Feed    : 10 000 kg/h of 32% NaOH solution at 75 degC
+  - Product : 50% NaOH solution
+  - Fresh steam supply pressure: 10 bar
+  - Liquid flow (counter-current): Effect 3 (feed, 32%) -> Effect 2 -> Effect 1 (product, 50%)
+  - Vapour flow: fresh steam -> Effect 1 -> V1 -> Effect 2 -> V2 -> Effect 3 -> surface condenser
+  - PRESSURE LEVELS: Effect 1 operates slightly above atmospheric.
+    Effects 2 and 3 operate under VACUUM (below atmospheric pressure), with
+    Effect 3 held at a deeper vacuum than Effect 2.
+    The ordering constraint P3 < P2 < P1 must be strictly satisfied.
+    The falling-film evaporators use a surface condenser downstream of Effect 3
+    to condense the final vapour; the achievable vacuum is limited by the
+    condenser's cooling-water temperature and the capacity of its vacuum system.
+  - Preheater network (4 exchangers, hot side in series / cold side parallel split):
+      PH1/PH2 preheat the Effect-2 feed (L2) to dT_superheat_1 degC above its
+        bubble point at P1, using the 50% NaOH product stream and Effect-1 condensate.
+      PH3/PH4 preheat the Effect-3 feed (L3) using the same two hot streams after
+        PH1/PH2; the hot-end approach is fixed at 5 degC (T_F2 = T_mid - 5).
+  - Objective: minimise steam consumption in kg steam per tonne of NaOH product.
+
+  OPTIMISATION VARIABLES REQUIRING CONSTRAINTS
+  - P1             : Effect 1 operating pressure (bar)
+  - P2             : Effect 2 operating pressure (bar)
+  - P3             : Effect 3 operating pressure (bar)
+  - dT_superheat_1 : superheat of feed entering Effect 1 above its bubble point
+                     at P1 (degC). Too little superheat risks partial flashing
+                     or maldistribution at the falling-film distributor; too
+                     much sacrifices heat recovered in the preheater network.
+
+  You are NOT given target numeric ranges for these four variables. Infer
+  defensible bounds yourself from the process description above and from
+  standard industrial practice for triple-effect falling-film NaOH evaporation.
+  If the available information is insufficient to justify a specific numeric
+  bound, say so explicitly in the process_overview field rather than inventing
+  a plausible-looking number.
+
+  Return valid JSON with exactly these keys:
+  {
+    "process_overview": "<markdown overview goes here>",
+    "constraints": [
+        {"variable": "P1",             "range": [<lower>, <upper>], "unit": "bar"},
+        {"variable": "P2",             "range": [<lower>, <upper>], "unit": "bar"},
+        {"variable": "P3",             "range": [<lower>, <upper>], "unit": "bar"},
+        {"variable": "dT_superheat_1", "range": [<lower>, <upper>], "unit": "degC"}
+    ]
+  }

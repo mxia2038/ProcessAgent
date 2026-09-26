@@ -1,0 +1,72 @@
+[
+ {
+  "run": "single-agent 1",
+  "llm_best": 491.15238886487737,
+  "polished": 485.97255776820646,
+  "extra_distinct_solves": 33,
+  "gap_after_pct": 1.188713485470354e-05
+ },
+ {
+  "run": "single-agent 2",
+  "llm_best": 490.7976216151091,
+  "polished": 485.97255778509833,
+  "extra_distinct_solves": 30,
+  "gap_after_pct": 1.1890610745739714e-05
+ },
+ {
+  "run": "single-agent 3",
+  "llm_best": 490.6458105239825,
+  "polished": 485.97255281174057,
+  "extra_distinct_solves": 30,
+  "gap_after_pct": 1.0867228196074199e-05
+ },
+ {
+  "run": "single-agent 4",
+  "llm_best": 491.38591362237133,
+  "polished": 485.9725578670649,
+  "extra_distinct_solves": 29,
+  "gap_after_pct": 1.1907477247761565e-05
+ },
+ {
+  "run": "single-agent 5",
+  "llm_best": 489.6937708767744,
+  "polished": 485.9725489815797,
+  "extra_distinct_solves": 33,
+  "gap_after_pct": 1.007908465041092e-05
+ },
+ {
+  "run": "multi-agent 1",
+  "llm_best": 488.82208559666736,
+  "polished": 485.9725554041791,
+  "extra_distinct_solves": 34,
+  "gap_after_pct": 1.1400681947894697e-05
+ },
+ {
+  "run": "multi-agent 2",
+  "llm_best": 489.1496260968371,
+  "polished": 485.97255786714385,
+  "extra_distinct_solves": 19,
+  "gap_after_pct": 1.190749349467035e-05
+ },
+ {
+  "run": "multi-agent 3",
+  "llm_best": 493.8057182963065,
+  "polished": 485.9725579063522,
+  "extra_distinct_solves": 25,
+  "gap_after_pct": 1.191556151774508e-05
+ },
+ {
+  "run": "multi-agent 4",
+  "llm_best": 492.3511581833316,
+  "polished": 485.97255762021206,
+  "extra_distinct_solves": 32,
+  "gap_after_pct": 1.1856681609106728e-05
+ },
+ {
+  "run": "multi-agent 5",
+  "llm_best": 492.9004193446671,
+  "polished": 485.9725249207416,
+  "extra_distinct_solves": 76,
+  "gap_after_pct": 5.1280147675738265e-06
+ }
+]

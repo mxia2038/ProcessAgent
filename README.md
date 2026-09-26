@@ -1,8 +1,19 @@
 # ProcessAgent — LLM-Guided Chemical Process Optimisation
 
-A multi-agent framework for autonomous optimisation of chemical processes, demonstrated on a **NaOH triple-effect falling-film evaporation** case study.
+A process-agnostic multi-agent framework in which large language models act as
+optimisation agents over an executable process model, demonstrated on a
+**NaOH triple-effect falling-film evaporation** case study.
 
-The system combines LLM-generated process constraints with an AutoGen multi-agent loop to explore and optimise steady-state operating conditions, achieving results within 1% of the mathematical optimum using fewer than 25 objective-function evaluations on average.
+The framework pairs an LLM-generated (or supplied) process description with an
+AutoGen multi-agent loop — validator, metric and suggestion agents — that
+proposes, checks and evaluates candidate operating points against a process
+simulator.
+
+**On the NaOH case study, an independent evaluation found no search-efficiency
+advantage for the tested LLM protocols over conventional numerical solvers**
+(SLSQP, COBYLA, constrained Bayesian optimisation); see [NaOH Case Study](#naoh-case-study)
+below for what is and is not supported by the evidence, and for the scripts
+that reproduce every number.
 
 ---
 
@@ -10,25 +21,48 @@ The system combines LLM-generated process constraints with an AutoGen multi-agen
 
 ```
 ProcessAgent/
-├── main.py                      LLM pipeline entry point
-├── context_agent.py             Generates process constraints via LLM
-├── optimization.py              AutoGen multi-agent optimisation loop
-├── agent_helper_function.py     Shared tool functions for agents
-├── naoh_evaporation.py          NaOH mass/energy balance model
-├── naoh_properties.py           NaOH-water thermodynamic property package
-├── naoh_objective_function.py   Objective function wrapper
-├── config.yaml                  All runtime settings and API key
-├── context_agent_prompt.yaml    LLM prompt for constraint generation
-└── Results/                     Optimisation outputs and figures
+├── main.py                          LLM pipeline entry point
+├── context_agent.py                 Generates process constraints via LLM
+├── optimization.py                  AutoGen multi-agent optimisation loop
+├── agent_helper_function.py         Shared tool functions for agents
+├── config.yaml                      Runtime settings (API key via env var, see below)
+├── context_agent_prompt.yaml        LLM prompt for constraint generation
+│
+├── naoh_evaporation.py              NaOH mass/energy balance model
+├── naoh_properties.py               NaOH-water thermodynamic property package
+├── naoh_objective_function.py       Objective function wrapper
+├── validate_enthalpy_handbook.py    Checks the enthalpy fit against its source table
+│
+├── baselines_public.py              SLSQP / COBYLA / DE / random / grid / constrained BO baselines
+├── feasibility_rate.py              Feasible-fraction estimate for the variable box
+├── de_budget_analysis.py            Differential-evolution budget sensitivity
+├── analyze_ablation_results.py      Single- vs four-agent solve-count accounting
+├── analyze_llm_distinct_solves.py   Distinct-solve reconstruction from run logs
+├── analyze_multistart.py            Starting-point-dependence summary
+├── polish_llm_endpoints.py          Local-solver refinement from each LLM endpoint
+├── make_comparison.py               Builds the budget-comparison table and figure
+│
+├── research/
+│   ├── balances.py                  Independent unit-by-unit mass/energy closure check
+│   └── publication/
+│       └── second_implementation.py Independent reimplementation used for the
+│                                    consistency check in the evaluation paper
+│
+└── Results/                         Selected numerical outputs (see below)
 ```
+
+The adapted multi-agent orchestration's raw conversation logs, and a script
+that drives it directly against the OpenAI API, are not included in this
+repository; the files above let you rerun every non-LLM number reported in
+the evaluation.
 
 ---
 
 ## Features
 
-- **LLM multi-agent optimisation** — ValidatorAgent, MetricCalculationAgent, and SuggestionAgent collaborate to iteratively improve process conditions
+- **LLM multi-agent optimisation** — validator, metric and suggestion agents collaborate to iteratively propose and check process conditions
 - **Process-agnostic framework** — add a new process with one new file and a config block; no changes to the framework layer
-- **NaOH evaporation model** — rigorous mass/energy balance with LMTD and preheater network
+- **NaOH evaporation model** — mass/energy balance with LMTD constraints and a preheater network, checked unit-by-unit against its own stream table
 
 ---
 
@@ -40,12 +74,13 @@ ProcessAgent/
 pip install -r requirements.txt
 ```
 
-### 2. Configure API key
+### 2. Set your API key
 
-Edit `config.yaml`:
-```yaml
-Model:
-  api_key: "your-openai-api-key"
+The key is read from the `OPENAI_API_KEY` environment variable (or a local
+`.env` file, which is git-ignored) — never hardcode it in `config.yaml`.
+
+```bash
+export OPENAI_API_KEY="your-openai-api-key"
 ```
 
 ### 3. Run the LLM optimisation pipeline
@@ -60,26 +95,26 @@ Results are saved to `Results/result_naoh.json`.
 
 ## NaOH Case Study
 
-**Process**: Counter-current triple-effect falling-film evaporation, 32 % → 50 % NaOH, 10 000 kg/h feed.
+**Process**: Counter-current triple-effect falling-film evaporation, 32 % → 50 % NaOH, 10 000 kg/h feed. Decision variables: effect pressures P₁, P₂, P₃ and the Effect-1 feed superheat ΔT_sh, subject to a minimum temperature-difference constraint in each effect.
 
-**Optimisation variables**: Effect pressures P₁, P₂, P₃ and Effect-1 feed superheat ΔT_sh.
+**What we found when we checked the search results, not just the search recommendations:**
 
-**Benchmark results**:
+- Stream-based mass/energy balances (`research/balances.py`) caught an implementation error in the original energy balance; correcting it changed the objective at a fixed point by about 2%.
+- Counting the model solves actually performed inside validation (not just the objective evaluations reported by the agent) increases the apparent cost of a run by roughly 5–6×.
+- Conventional local solvers (SLSQP, COBYLA) reach the best feasible point found in this study, from a shared starting point, in about 20–40 solves; the tested single- and four-agent LLM protocols stopped short of it (roughly 1% higher on average) after making the same information available to them.
+- The feasible region occupies about 0.5% of the searched variable box, which matters for interpreting any comparison at a small evaluation budget.
 
-| Method | Steam (kg/t NaOH) | Evaluations | Time |
-|--------|-------------------|-------------|------|
-| SLSQP (10 starts) | **518.24** | 338 | 0.5 s |
-| Differential Evolution | 518.29 | 2 505 | 0.8 s |
-| Grid Search (8⁴) | 520.85 | 4 096 | 1.0 s |
-| **LLM multi-agent** | **523.5** *(mean, 5 runs)* | **~20** | ~4 min |
-
-The LLM agent reaches 99.0 % of the mathematical optimum using ~20 evaluations — roughly 125× fewer than Differential Evolution.
+Run `baselines_public.py` to reproduce the numerical baselines, `validate_enthalpy_handbook.py` to check the property fit, and `research/balances.py` / `research/publication/second_implementation.py` for the two independent consistency checks. A manuscript describing the full evaluation, and its limits, is in preparation.
 
 ---
 
 ## Requirements
 
 - Python 3.11+
-- OpenAI API key
+- OpenAI API key (only needed to run the LLM pipeline; the baselines and checks above do not call any API)
 
 See `requirements.txt` for pinned versions.
+
+## License
+
+MIT — see [LICENSE](LICENSE).

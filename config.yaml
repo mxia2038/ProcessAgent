@@ -15,7 +15,7 @@ Optimization:
   process: "naoh"          # "naoh" or "hda"
   initial_params:
     P1: 2.0
-    P2: 0.45
+    P2: 0.44
     P3: 0.09
     dT_superheat_1: 7.0
   optimization_metric: "steam_per_tonne_naoh"   # lower is better
@@ -27,14 +27,14 @@ Optimization:
     dT_superheat_1: [5.0, 10.0]
   fixed_params:
     DT_APP_PH34: 4.0             # E201/E202 cold-end approach, °C; T_hot_out34 = T3 + DT_APP_PH34
-    enthalpy_correlation: "public"         # "proprietary" = internal data; "public" = Perry's Handbook
+    enthalpy_correlation: "public"         # only "public" is supported in this release (fit to a published chlor-alkali handbook table)
 
 # ===========================
 # Model Configuration
 # ===========================
 Model:
   model: "gpt-5.4"
-  api_key: "your-openai-api-key-here"
+  api_key: ""  # set via OPENAI_API_KEY env var / .env file — see README
   base_url: "https://api.openai.com/v1"
   model_info:
     model: "gpt-5.4"

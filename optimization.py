@@ -14,6 +14,7 @@ All process-specific logic lives in:
 """
 
 import json
+import os
 import asyncio
 from typing import Sequence
 
@@ -23,7 +24,7 @@ from autogen_agentchat.teams import SelectorGroupChat
 from autogen_agentchat.messages import AgentEvent, ChatMessage
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 from autogen_core.memory import ListMemory
-from autogen_agentchat.conditions import TextMentionTermination
+from autogen_agentchat.conditions import MaxMessageTermination, TextMentionTermination
 
 import agent_helper_function
 from agent_helper_function import calculate_params_tool, validate, add_context
@@ -45,7 +46,7 @@ async def run_main(initial_params, constraints, metric, context, llm_config):
     var_keys_str = ", ".join(f'"{k}"' for k in var_names)
 
     model_client = OpenAIChatCompletionClient(
-        api_key=llm_config["api_key"],
+        api_key=os.environ.get("OPENAI_API_KEY") or llm_config.get("api_key", ""),
         model=llm_config["model"],
         base_url=llm_config["base_url"],
         model_info=llm_config["model_info"],
@@ -177,7 +178,8 @@ Objective: minimise {metric}
             return None if "TERMINATE" in content else validator_agent.name
         return None
 
-    termination = TextMentionTermination("TERMINATE")
+    # safety cap only (previous runs used at most ~250 messages); does not change normal behaviour
+    termination = TextMentionTermination("TERMINATE") | MaxMessageTermination(600)
 
     team = SelectorGroupChat(
         [parameter_agent, validator_agent, simulation_agent, suggestion_agent],

@@ -1,0 +1,9 @@
+{
+ "draws": 200000,
+ "seed": 0,
+ "ordering_ok": 200000,
+ "feasible": 1019,
+ "feasible_fraction_of_all_draws_pct": 0.5095,
+ "feasible_fraction_of_ordering_ok_pct": 0.5095,
+ "feasibility_tolerance_degC": 0.0001
+}

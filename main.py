@@ -31,7 +31,7 @@ if process == "naoh":
 
     _fixed        = optimization_config.get("fixed_params", {})
     _DT_APP_PH34  = _fixed.get("DT_APP_PH34", 4.0)
-    _CORRELATION  = _fixed.get("enthalpy_correlation", "proprietary")
+    _CORRELATION  = _fixed.get("enthalpy_correlation", "public")
 
     objective_fn = partial(naoh_objective, DT_APP_PH34=_DT_APP_PH34, correlation=_CORRELATION)
 

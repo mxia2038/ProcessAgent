@@ -1,0 +1,134 @@
+{
+ "B_feasible_random|LLM single-agent": [
+  {
+   "solves": 21,
+   "valid": 16,
+   "lmtd_rej": 5,
+   "other_rej": 1,
+   "best": 490.79372117915517,
+   "terminated": true
+  },
+  {
+   "solves": 7,
+   "valid": 4,
+   "lmtd_rej": 3,
+   "other_rej": 2,
+   "best": 495.80962095211777,
+   "terminated": true
+  },
+  {
+   "solves": 21,
+   "valid": 15,
+   "lmtd_rej": 6,
+   "other_rej": 1,
+   "best": 491.8450322535276,
+   "terminated": true
+  }
+ ],
+ "B_feasible_random|LLM multi-agent": [
+  {
+   "solves": 83,
+   "valid": 71,
+   "lmtd_rej": 12,
+   "other_rej": 86,
+   "best": 489.8992939872858,
+   "terminated": true
+  }
+ ],
+ "B_feasible_random|slsqp": {
+  "solves": 25,
+  "best": 485.97255790631976
+ },
+ "B_feasible_random|cobyla": {
+  "solves": 33,
+  "best": 485.972557784848
+ },
+ "C_near_infeasible|LLM single-agent": [
+  {
+   "solves": 6,
+   "valid": 3,
+   "lmtd_rej": 3,
+   "other_rej": 2,
+   "best": 490.72016132965797,
+   "terminated": true
+  },
+  {
+   "solves": 5,
+   "valid": 3,
+   "lmtd_rej": 2,
+   "other_rej": 1,
+   "best": 490.0739462051631,
+   "terminated": true
+  },
+  {
+   "solves": 7,
+   "valid": 3,
+   "lmtd_rej": 4,
+   "other_rej": 3,
+   "best": 491.58893099594155,
+   "terminated": true
+  }
+ ],
+ "C_near_infeasible|LLM multi-agent": [
+  {
+   "solves": 23,
+   "valid": 12,
+   "lmtd_rej": 11,
+   "other_rej": 22,
+   "best": 489.5708150953493,
+   "terminated": true
+  }
+ ],
+ "C_near_infeasible|slsqp": {
+  "solves": 21,
+  "best": 485.9725578946981
+ },
+ "C_near_infeasible|cobyla": {
+  "solves": 29,
+  "best": 485.9725579063753
+ },
+ "D_corner_infeasible|LLM single-agent": [
+  {
+   "solves": 8,
+   "valid": 0,
+   "lmtd_rej": 8,
+   "other_rej": 0,
+   "best": Infinity,
+   "terminated": true
+  },
+  {
+   "solves": 7,
+   "valid": 0,
+   "lmtd_rej": 7,
+   "other_rej": 0,
+   "best": Infinity,
+   "terminated": true
+  },
+  {
+   "solves": 7,
+   "valid": 0,
+   "lmtd_rej": 7,
+   "other_rej": 0,
+   "best": Infinity,
+   "terminated": true
+  }
+ ],
+ "D_corner_infeasible|LLM multi-agent": [
+  {
+   "solves": 30,
+   "valid": 6,
+   "lmtd_rej": 24,
+   "other_rej": 33,
+   "best": 486.8386060670197,
+   "terminated": true
+  }
+ ],
+ "D_corner_infeasible|slsqp": {
+  "solves": 30,
+  "best": 485.9725577269249
+ },
+ "D_corner_infeasible|cobyla": {
+  "solves": 31,
+  "best": 485.97254992359586
+ }
+}

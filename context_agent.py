@@ -15,7 +15,7 @@ async def generate_context(model_config, agent_config, loop_n) -> None:
         return str(path.with_name(new_name))
 
     model_client = OpenAIChatCompletionClient(
-        api_key=model_config["api_key"],
+        api_key=os.environ.get("OPENAI_API_KEY") or model_config.get("api_key", ""),
         model=model_config["model"],
         base_url=model_config["base_url"],
         model_info=model_config["model_info"]

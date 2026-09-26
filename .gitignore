@@ -1,5 +1,6 @@
 # Private / proprietary files — never commit
 naoh_properties_private.py
+.env
 
 # Python
 __pycache__/
@@ -22,15 +23,14 @@ dist/
 .DS_Store
 Thumbs.db
 paper_draft.md
+paper_iopart.tex
 
-# Paper-related (not public until publication)
+# Superseded / not part of the released evaluation
 benchmark.py
 reproducibility.py
 plot_convergence.py
 Results/
+
+# Internal tools, not public
 naoh_gui.py
 CLAUDE.md
-naoh_evaporation.py
-naoh_properties.py
-naoh_objective_function.py
-context_agent_prompt.yaml
