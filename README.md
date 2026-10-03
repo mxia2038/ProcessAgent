@@ -9,11 +9,7 @@ AutoGen multi-agent loop — validator, metric and suggestion agents — that
 proposes, checks and evaluates candidate operating points against a process
 simulator.
 
-**On the NaOH case study, an independent evaluation found no search-efficiency
-advantage for the tested LLM protocols over conventional numerical solvers**
-(SLSQP, COBYLA, constrained Bayesian optimisation); see [NaOH Case Study](#naoh-case-study)
-below for what is and is not supported by the evidence, and for the scripts
-that reproduce every number.
+**Numerical refinement improved all ten retained LLM endpoints by 0.58-1.59%.** The [offline endpoint package](reproducibility/endpoint_refinement/) provides numerical records, the process model and refinement checks. Exact historical solve counts are sensitive to numerical execution; the package documents the comparison.
 
 ---
 
@@ -39,7 +35,7 @@ ProcessAgent/
 ├── analyze_ablation_results.py      Single- vs four-agent solve-count accounting
 ├── analyze_llm_distinct_solves.py   Distinct-solve reconstruction from run logs
 ├── analyze_multistart.py            Starting-point-dependence summary
-├── polish_llm_endpoints.py          Local-solver refinement from each LLM endpoint
+├── reproducibility/endpoint_refinement/  Numerical endpoint records and offline checks
 ├── make_comparison.py               Builds the budget-comparison table and figure
 │
 ├── research/
@@ -51,10 +47,7 @@ ProcessAgent/
 └── Results/                         Selected numerical outputs (see below)
 ```
 
-The adapted multi-agent orchestration's raw conversation logs, and a script
-that drives it directly against the OpenAI API, are not included in this
-repository; the files above let you rerun every non-LLM number reported in
-the evaluation.
+The [endpoint package](reproducibility/endpoint_refinement/) verifies numerical refinement from ten supplied endpoint records without API calls. Full agent conversations are not published. Supplied agent counts and endpoint selection remain summaries of the retained local records, rather than independently reconstructed histories.
 
 ---
 
@@ -101,7 +94,7 @@ Results are saved to `Results/result_naoh.json`.
 
 - Stream-based mass/energy balances (`research/balances.py`) caught an implementation error in the original energy balance; correcting it changed the objective at a fixed point by about 2%.
 - Counting the model solves actually performed inside validation (not just the objective evaluations reported by the agent) increases the apparent cost of a run by roughly 5–6×.
-- Conventional local solvers (SLSQP, COBYLA) reach the best feasible point found in this study, from a shared starting point, in about 20–40 solves; the tested single- and four-agent LLM protocols stopped short of it (roughly 1% higher on average) after making the same information available to them.
+- Conventional local solvers (SLSQP, COBYLA) reach the best feasible point found in this study, from a shared starting point, in about 20–40 solves; the tested single- and four-agent LLM protocols stopped short of it (roughly 1% higher on average) under different feedback interfaces: continuous constraint residuals for numerical solvers and qualitative validation feedback for agents.
 - The feasible region occupies about 0.5% of the searched variable box, which matters for interpreting any comparison at a small evaluation budget.
 
 Run `baselines_public.py` to reproduce the numerical baselines, `validate_enthalpy_handbook.py` to check the property fit, and `research/balances.py` / `research/publication/second_implementation.py` for the two independent consistency checks. A manuscript describing the full evaluation, and its limits, is in preparation.

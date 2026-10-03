@@ -1,0 +1,12 @@
+{
+  ".gitattributes": "a79691a93b46e49ce460c26ef22afcc03d6eca1e63bf2edbc20e96159510f6c9",
+  "LICENSE": "19d64408c0d4f96c5a261d41d4186f10617e37505273ba96b8c42f12001d339a",
+  "README.md": "f0f324c2861bfd0e03dc81af3554d406e0906bd754c1be706663cf634f36bddf",
+  "endpoint_data.json": "8b4b4ad38fda61e79031d7e108701e4d3585153c9887c3baf15d19e1ac5b8ff9",
+  "verify_endpoints.py": "7ba060f10277a8b17be418bc653bb328ead2e82d36380a37e9daa81fd48dd0bc",
+  "requirements-offline.txt": "6afb83d59515deb526c4879fe45c151289c53c8b2bd6c073dfcd3702132e51ac",
+  "naoh_evaporation.py": "43a2ce4cfac38fe63aef6894828aec806880c4816f6c1f5b988fef2719c8d4cd",
+  "naoh_properties.py": "7504e6a6c52ef129a59685a2c01af8b992a1828563cef63aef446be4d40cb48d",
+  "baselines_public.py": "c38799ffdbb1d69d9e7cbb58ab9212439d005ff75f865993a3732862c032c8bb",
+  "verification_results/endpoint_revision_checks.json": "37d6b3669c3bd938870ddeb63404fcd1e158d3f2b7804f1ab500a547c86a288a"
+}

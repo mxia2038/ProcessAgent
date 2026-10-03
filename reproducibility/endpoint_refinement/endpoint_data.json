@@ -1,0 +1,182 @@
+[
+  {
+    "protocol": "single-agent",
+    "run": 1,
+    "endpoint_x": [
+      2.1799999999999997,
+      0.39999999999999997,
+      0.08,
+      7.1499999999999995
+    ],
+    "recorded": {
+      "run": "single-agent 1",
+      "llm_best": 491.15238886487737,
+      "polished": 485.97255776820646,
+      "extra_distinct_solves": 33,
+      "gap_after_pct": 1.188713485470354e-05
+    },
+    "reconstructed_agent_solves": 9
+  },
+  {
+    "protocol": "single-agent",
+    "run": 2,
+    "endpoint_x": [
+      2.12,
+      0.39999999999999997,
+      0.08,
+      7.199999999999999
+    ],
+    "recorded": {
+      "run": "single-agent 2",
+      "llm_best": 490.7976216151091,
+      "polished": 485.97255778509833,
+      "extra_distinct_solves": 30,
+      "gap_after_pct": 1.1890610745739714e-05
+    },
+    "reconstructed_agent_solves": 9
+  },
+  {
+    "protocol": "single-agent",
+    "run": 3,
+    "endpoint_x": [
+      2.0500000000000003,
+      0.39999999999999997,
+      0.08,
+      6.97
+    ],
+    "recorded": {
+      "run": "single-agent 3",
+      "llm_best": 490.6458105239825,
+      "polished": 485.97255281174057,
+      "extra_distinct_solves": 30,
+      "gap_after_pct": 1.0867228196074199e-05
+    },
+    "reconstructed_agent_solves": 13
+  },
+  {
+    "protocol": "single-agent",
+    "run": 4,
+    "endpoint_x": [
+      2.15,
+      0.41000000000000003,
+      0.08,
+      7.1
+    ],
+    "recorded": {
+      "run": "single-agent 4",
+      "llm_best": 491.38591362237133,
+      "polished": 485.9725578670649,
+      "extra_distinct_solves": 29,
+      "gap_after_pct": 1.1907477247761565e-05
+    },
+    "reconstructed_agent_solves": 10
+  },
+  {
+    "protocol": "single-agent",
+    "run": 5,
+    "endpoint_x": [
+      1.9,
+      0.39999999999999997,
+      0.08,
+      7.1
+    ],
+    "recorded": {
+      "run": "single-agent 5",
+      "llm_best": 489.6937708767744,
+      "polished": 485.9725489815797,
+      "extra_distinct_solves": 33,
+      "gap_after_pct": 1.007908465041092e-05
+    },
+    "reconstructed_agent_solves": 9
+  },
+  {
+    "protocol": "multi-agent",
+    "run": 1,
+    "endpoint_x": [
+      2.0,
+      0.44,
+      0.08,
+      10.0
+    ],
+    "recorded": {
+      "run": "multi-agent 1",
+      "llm_best": 488.82208559666736,
+      "polished": 485.9725554041791,
+      "extra_distinct_solves": 34,
+      "gap_after_pct": 1.1400681947894697e-05
+    },
+    "reconstructed_agent_solves": 11
+  },
+  {
+    "protocol": "multi-agent",
+    "run": 2,
+    "endpoint_x": [
+      1.82,
+      0.395,
+      0.08,
+      7.0
+    ],
+    "recorded": {
+      "run": "multi-agent 2",
+      "llm_best": 489.1496260968371,
+      "polished": 485.97255786714385,
+      "extra_distinct_solves": 19,
+      "gap_after_pct": 1.190749349467035e-05
+    },
+    "reconstructed_agent_solves": 48
+  },
+  {
+    "protocol": "multi-agent",
+    "run": 3,
+    "endpoint_x": [
+      2.1,
+      0.42,
+      0.087,
+      6.8
+    ],
+    "recorded": {
+      "run": "multi-agent 3",
+      "llm_best": 493.8057182963065,
+      "polished": 485.9725579063522,
+      "extra_distinct_solves": 25,
+      "gap_after_pct": 1.191556151774508e-05
+    },
+    "reconstructed_agent_solves": 12
+  },
+  {
+    "protocol": "multi-agent",
+    "run": 4,
+    "endpoint_x": [
+      2.03,
+      0.4104,
+      0.08499999999999999,
+      7.0
+    ],
+    "recorded": {
+      "run": "multi-agent 4",
+      "llm_best": 492.3511581833316,
+      "polished": 485.97255762021206,
+      "extra_distinct_solves": 32,
+      "gap_after_pct": 1.1856681609106728e-05
+    },
+    "reconstructed_agent_solves": 19
+  },
+  {
+    "protocol": "multi-agent",
+    "run": 5,
+    "endpoint_x": [
+      2.05,
+      0.415,
+      0.086,
+      7.0
+    ],
+    "recorded": {
+      "run": "multi-agent 5",
+      "llm_best": 492.9004193446671,
+      "polished": 485.9725249207416,
+      "extra_distinct_solves": 76,
+      "gap_after_pct": 5.1280147675738265e-06
+    },
+    "reconstructed_agent_solves": 20
+  }
+]
